@@ -1,7 +1,19 @@
 version: '3.9'
 
 services:
-  timestat_api:
+  db:
+    container_name: db
+    image: postgres:14.7-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "15432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+  api:
     image: client:0.0.1
     build:
       context: .
@@ -12,22 +24,12 @@ services:
         PG_PASSWORD: ${PG_PASSWORD}
     ports:
       - "8080:8080"
-    depends_on:
-      - timestat_db
     environment:
-      DB_URL: jdbc:postgresql://timestat_db:5432/timestat
+      DB_URL: jdbc:postgresql://db:5432/timestat
       PG_USER: postgres
       PG_PASSWORD: postgres
-  timestat_db:
-    image: postgres:14.7-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    restart: unless-stopped
+    depends_on:
+      - db
 
 volumes:
   db-data: { }

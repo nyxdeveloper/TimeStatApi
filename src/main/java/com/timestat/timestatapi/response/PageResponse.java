@@ -10,4 +10,11 @@ public class PageResponse<T> {
     private Long totalItems;
     private int totalPages;
     private List<T> results;
+
+    public PageResponse(int currentPage, Long totalItems, int totalPages, List<T> results) {
+        this.currentPage = currentPage;
+        this.totalItems = totalItems;
+        this.totalPages = totalPages;
+        this.results = results;
+    }
 }

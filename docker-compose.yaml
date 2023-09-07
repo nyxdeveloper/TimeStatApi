@@ -14,7 +14,7 @@ services:
       - db-data:/var/lib/postgresql/data
     restart: unless-stopped
   api:
-    image: client:0.0.1
+    image: timestat_api:0.0.1
     build:
       context: .
       dockerfile: Dockerfile

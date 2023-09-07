@@ -5,7 +5,12 @@ import com.timestat.timestatapi.models.Subject;
 import com.timestat.timestatapi.models.SubjectType;
 import com.timestat.timestatapi.repositories.SubjectRepository;
 import com.timestat.timestatapi.repositories.SubjectTypeRepository;
+import com.timestat.timestatapi.specifications.SubjectSpecification;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +26,10 @@ public class SubjectService {
         this.subjectTypeRepository = subjectTypeRepository;
     }
 
-    public List<Subject> list() {
-        return repository.findAll();
+    public Page<Subject> paginateList(int page, int pageSize, String search, List<Long> idIn, List<Long> typeIdIn) {
+        Specification<Subject> specification = SubjectSpecification.getFilterSpecification(search, idIn, typeIdIn);
+        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by("name"));
+        return repository.findAll(specification, pageRequest);
     }
 
     public Subject oneById(Long id) {

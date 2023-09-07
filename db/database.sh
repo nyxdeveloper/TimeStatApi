@@ -6,7 +6,7 @@ set -a
 
 # Присваимваем значения для сервера, имени пользователя, паролю и названию БД из конфига сервиса.
 DB_HOST="localhost"
-DB_PORT=15432
+DB_PORT=5432
 DB_USER="postgres"
 DB_NAME="timestat"
 export PGPASSWORD="postgres"

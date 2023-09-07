@@ -1,14 +1,15 @@
 package com.timestat.timestatapi.controllers;
 
+import com.timestat.timestatapi.dto.PageResponseDto;
 import com.timestat.timestatapi.dto.SubjectDto;
 import com.timestat.timestatapi.models.Subject;
 import com.timestat.timestatapi.service.SubjectService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/subjects")
@@ -20,8 +21,16 @@ public class SubjectController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<SubjectDto>> getList() {
-        return new ResponseEntity<>(service.list().stream().map(Subject::toDto).collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<PageResponseDto<Subject>> getList(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "100") int pageSize,
+            @RequestParam(required = false, defaultValue = "") String search,
+            @RequestParam(required = false, defaultValue = "") List<Long> idIn,
+            @RequestParam(required = false, defaultValue = "") List<Long> typeIdIn
+    ) {
+        Page<Subject> resultPage = service.paginateList(page, pageSize, search, idIn, typeIdIn);
+        PageResponseDto<Subject> pageResponse = new PageResponseDto<>(resultPage);
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

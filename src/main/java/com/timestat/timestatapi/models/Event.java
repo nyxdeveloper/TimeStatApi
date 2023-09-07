@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event implements IBaseEntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

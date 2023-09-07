@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "subjects")
-public class Subject {
+public class Subject implements IBaseEntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

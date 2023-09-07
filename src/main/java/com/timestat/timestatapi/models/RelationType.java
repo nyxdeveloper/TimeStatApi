@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "relation_types")
-public class RelationType {
+public class RelationType implements IBaseEntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

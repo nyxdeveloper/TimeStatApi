@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "event_types")
-public class EventType {
+public class EventType implements IBaseEntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

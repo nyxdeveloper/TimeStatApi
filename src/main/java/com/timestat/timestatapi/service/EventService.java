@@ -1,16 +1,21 @@
 package com.timestat.timestatapi.service;
 
-import com.timestat.timestatapi.dto.EventDto;
+import com.timestat.timestatapi.dto.models.EventDto;
+import com.timestat.timestatapi.dto.request.EventRequestParamsDto;
 import com.timestat.timestatapi.models.Event;
 import com.timestat.timestatapi.models.EventType;
 import com.timestat.timestatapi.models.Subject;
 import com.timestat.timestatapi.repositories.EventRepository;
 import com.timestat.timestatapi.repositories.EventTypeRepository;
 import com.timestat.timestatapi.repositories.SubjectRepository;
+import com.timestat.timestatapi.specifications.EventSpecification;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -25,8 +30,10 @@ public class EventService {
         this.subjectRepository = subjectRepository;
     }
 
-    public List<Event> list() {
-        return repository.findAll();
+    public Page<Event> paginateList(EventRequestParamsDto request) {
+        Specification<Event> specification = EventSpecification.getFilterSpecification(request);
+        PageRequest pageRequest = PageRequest.of(request.getPage(), request.getPageSize(), Sort.by("date").descending());
+        return repository.findAll(specification, pageRequest);
     }
 
     public Event oneById(Long id) {

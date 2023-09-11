@@ -1,6 +1,6 @@
 package com.timestat.timestatapi.controllers;
 
-import com.timestat.timestatapi.dto.SubjectTypeDto;
+import com.timestat.timestatapi.dto.models.SubjectTypeDto;
 import com.timestat.timestatapi.models.SubjectType;
 import com.timestat.timestatapi.service.SubjectTypeService;
 import org.springframework.http.HttpStatus;

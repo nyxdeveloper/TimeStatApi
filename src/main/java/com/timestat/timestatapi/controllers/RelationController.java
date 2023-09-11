@@ -1,14 +1,14 @@
 package com.timestat.timestatapi.controllers;
 
-import com.timestat.timestatapi.dto.RelationDto;
+import com.timestat.timestatapi.dto.models.RelationDto;
+import com.timestat.timestatapi.dto.request.RelationRequestParamsDto;
+import com.timestat.timestatapi.dto.response.PageResponseDto;
 import com.timestat.timestatapi.models.Relation;
 import com.timestat.timestatapi.service.RelationService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/relations")
@@ -20,8 +20,10 @@ public class RelationController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<RelationDto>> getList() {
-        return new ResponseEntity<>(service.list().stream().map(Relation::toDto).collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<PageResponseDto<Relation>> getList(@RequestParam RelationRequestParamsDto request) {
+        Page<Relation> resultPage = service.paginateList(request);
+        PageResponseDto<Relation> pageResponse = new PageResponseDto<>(resultPage);
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

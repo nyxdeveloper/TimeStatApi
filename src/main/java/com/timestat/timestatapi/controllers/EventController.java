@@ -1,14 +1,15 @@
 package com.timestat.timestatapi.controllers;
 
-import com.timestat.timestatapi.dto.EventDto;
+import com.timestat.timestatapi.dto.models.EventDto;
+import com.timestat.timestatapi.dto.request.EventRequestParamsDto;
+import com.timestat.timestatapi.dto.response.PageResponseDto;
 import com.timestat.timestatapi.models.Event;
 import com.timestat.timestatapi.service.EventService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/events")
@@ -20,8 +21,10 @@ public class EventController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<EventDto>> getList() {
-        return new ResponseEntity<>(service.list().stream().map(Event::toDto).collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<PageResponseDto<Event>> getList(@RequestParam EventRequestParamsDto request) {
+        Page<Event> resultPage = service.paginateList(request);
+        PageResponseDto<Event> pageResponse = new PageResponseDto<>(resultPage);
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

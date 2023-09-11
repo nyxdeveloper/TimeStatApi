@@ -1,6 +1,6 @@
 package com.timestat.timestatapi.service;
 
-import com.timestat.timestatapi.dto.RelationTypeDto;
+import com.timestat.timestatapi.dto.models.RelationTypeDto;
 import com.timestat.timestatapi.models.RelationType;
 import com.timestat.timestatapi.repositories.RelationTypeRepository;
 import jakarta.transaction.Transactional;

@@ -1,6 +1,6 @@
 package com.timestat.timestatapi.service;
 
-import com.timestat.timestatapi.dto.SubjectTypeDto;
+import com.timestat.timestatapi.dto.models.SubjectTypeDto;
 import com.timestat.timestatapi.models.SubjectType;
 import com.timestat.timestatapi.repositories.SubjectTypeRepository;
 import jakarta.transaction.Transactional;

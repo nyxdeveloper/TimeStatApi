@@ -1,5 +1,6 @@
-package com.timestat.timestatapi.dto;
+package com.timestat.timestatapi.dto.response;
 
+import com.timestat.timestatapi.dto.Dto;
 import com.timestat.timestatapi.models.IBaseEntityModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,6 +1,6 @@
 package com.timestat.timestatapi.models;
 
-import com.timestat.timestatapi.dto.RelationTypeDto;
+import com.timestat.timestatapi.dto.models.RelationTypeDto;
 import jakarta.persistence.*;
 import lombok.Data;
 

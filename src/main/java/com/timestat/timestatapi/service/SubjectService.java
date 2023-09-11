@@ -1,6 +1,7 @@
 package com.timestat.timestatapi.service;
 
-import com.timestat.timestatapi.dto.SubjectDto;
+import com.timestat.timestatapi.dto.models.SubjectDto;
+import com.timestat.timestatapi.dto.request.SubjectRequestParamsDto;
 import com.timestat.timestatapi.models.Subject;
 import com.timestat.timestatapi.models.SubjectType;
 import com.timestat.timestatapi.repositories.SubjectRepository;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,9 +26,9 @@ public class SubjectService {
         this.subjectTypeRepository = subjectTypeRepository;
     }
 
-    public Page<Subject> paginateList(int page, int pageSize, String search, List<Long> idIn, List<Long> typeIdIn) {
-        Specification<Subject> specification = SubjectSpecification.getFilterSpecification(search, idIn, typeIdIn);
-        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by("name"));
+    public Page<Subject> paginateList(SubjectRequestParamsDto request) {
+        Specification<Subject> specification = SubjectSpecification.getFilterSpecification(request);
+        PageRequest pageRequest = PageRequest.of(request.getPage(), request.getPageSize(), Sort.by("name"));
         return repository.findAll(specification, pageRequest);
     }
 

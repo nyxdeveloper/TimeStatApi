@@ -16,7 +16,12 @@ public class EventSpecification {
         List<Predicate> filterPredicates = new ArrayList<>();
 
         return (root, query, cb) -> {
-            predicates.add(cb.equal(root.get("approved"), request.isApproved()));
+            // TODO filter by approved causes an error
+            if (request.isApproved()) {
+                predicates.add(cb.isTrue(root.get("approved")));
+            } else {
+                predicates.add(cb.isFalse(root.get("approved")));
+            }
 
             String search = request.getSearch();
             if (search != null) {

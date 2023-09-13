@@ -12,7 +12,7 @@ import java.util.List;
 public class EventRequestParamsDto extends RequestParamsDto {
     List<Long> typeIdIn;
     List<Long> subjectIdIn;
-    boolean approved;
+    boolean approved = true;
     Date dateStart;
     Date dateEnd;
 }

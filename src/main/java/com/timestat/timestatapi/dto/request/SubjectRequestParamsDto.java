@@ -10,12 +10,4 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class SubjectRequestParamsDto extends RequestParamsDto {
     List<Long> typeIdIn;
-
-    public SubjectRequestParamsDto(int page, int pageSize, String search, List<Long> idIn, List<Long> typeIdIn) {
-        this.setPage(page);
-        this.setPageSize(pageSize);
-        this.setSearch(search);
-        this.setIdIn(idIn);
-        this.typeIdIn = typeIdIn;
-    }
 }

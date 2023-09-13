@@ -16,7 +16,7 @@ public class RelationSpecification {
 
         return (root, query, cb) -> {
             String search = request.getSearch();
-            if (!search.isEmpty()) {
+            if (search != null) {
                 List<Predicate> searchPredicates = new ArrayList<>();
                 searchPredicates.add(cb.like(cb.lower(root.get("name")), "%" + search.toLowerCase() + "%"));
                 searchPredicates.add(cb.like(cb.lower(root.get("description")), "%" + search.toLowerCase() + "%"));
@@ -24,7 +24,7 @@ public class RelationSpecification {
             }
 
             List<Long> idIn = request.getIdIn();
-            if (!idIn.isEmpty()) {
+            if (idIn != null) {
                 CriteriaBuilder.In<Long> idInPredicate = cb.in(root.get("id"));
                 for (Long id : idIn) {
                     idInPredicate.value(id);
@@ -33,7 +33,7 @@ public class RelationSpecification {
             }
 
             List<Long> typeIdIn = request.getTypeIdIn();
-            if (!typeIdIn.isEmpty()) {
+            if (typeIdIn != null) {
                 CriteriaBuilder.In<Long> typeIdInPredicate = cb.in(root.get("type").get("id"));
                 for (Long typeId : typeIdIn) {
                     typeIdInPredicate.value(typeId);
@@ -42,7 +42,7 @@ public class RelationSpecification {
             }
 
             List<Long> fromIdIn = request.getFromIdIn();
-            if (!fromIdIn.isEmpty()) {
+            if (fromIdIn != null) {
                 CriteriaBuilder.In<Long> fromIdInPredicate = cb.in(root.get("from").get("id"));
                 for (Long fromId : fromIdIn) {
                     fromIdInPredicate.value(fromId);
@@ -50,7 +50,7 @@ public class RelationSpecification {
                 filterPredicates.add(fromIdInPredicate);
             }
             List<Long> toIdIn = request.getFromIdIn();
-            if (!toIdIn.isEmpty()) {
+            if (toIdIn != null) {
                 CriteriaBuilder.In<Long> toIdInPredicate = cb.in(root.get("to").get("id"));
                 for (Long toId : toIdIn) {
                     toIdInPredicate.value(toId);

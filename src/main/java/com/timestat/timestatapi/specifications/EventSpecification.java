@@ -19,7 +19,7 @@ public class EventSpecification {
             predicates.add(cb.equal(root.get("approved"), request.isApproved()));
 
             String search = request.getSearch();
-            if (!search.isEmpty()) {
+            if (search != null) {
                 List<Predicate> searchPredicates = new ArrayList<>();
                 searchPredicates.add(cb.like(cb.lower(root.get("name")), "%" + search.toLowerCase() + "%"));
                 searchPredicates.add(cb.like(cb.lower(root.get("description")), "%" + search.toLowerCase() + "%"));
@@ -37,7 +37,7 @@ public class EventSpecification {
             }
 
             List<Long> idIn = request.getIdIn();
-            if (!idIn.isEmpty()) {
+            if (idIn != null) {
                 CriteriaBuilder.In<Long> idInPredicate = cb.in(root.get("id"));
                 for (Long id : idIn) {
                     idInPredicate.value(id);
@@ -46,7 +46,7 @@ public class EventSpecification {
             }
 
             List<Long> typeIdIn = request.getTypeIdIn();
-            if (!typeIdIn.isEmpty()) {
+            if (typeIdIn != null) {
                 CriteriaBuilder.In<Long> typeIdInPredicate = cb.in(root.get("type").get("id"));
                 for (Long typeId : typeIdIn) {
                     typeIdInPredicate.value(typeId);
@@ -55,7 +55,7 @@ public class EventSpecification {
             }
 
             List<Long> subjectIdIn = request.getSubjectIdIn();
-            if (!subjectIdIn.isEmpty()) {
+            if (subjectIdIn != null) {
                 CriteriaBuilder.In<Long> subjectIdInPredicate = cb.in(root.get("subject").get("id"));
                 for (Long subjectId : subjectIdIn) {
                     subjectIdInPredicate.value(subjectId);

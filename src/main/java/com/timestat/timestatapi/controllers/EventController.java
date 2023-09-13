@@ -8,6 +8,7 @@ import com.timestat.timestatapi.service.EventService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,7 +22,7 @@ public class EventController {
     }
 
     @GetMapping("")
-    public ResponseEntity<PageResponseDto<Event>> getList(@RequestParam EventRequestParamsDto request) {
+    public ResponseEntity<PageResponseDto<Event>> getList(@Validated EventRequestParamsDto request) {
         Page<Event> resultPage = service.paginateList(request);
         PageResponseDto<Event> pageResponse = new PageResponseDto<>(resultPage);
         return new ResponseEntity<>(pageResponse, HttpStatus.OK);

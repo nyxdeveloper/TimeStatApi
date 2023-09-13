@@ -8,6 +8,7 @@ import com.timestat.timestatapi.service.RelationService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,7 @@ public class RelationController {
     }
 
     @GetMapping("")
-    public ResponseEntity<PageResponseDto<Relation>> getList(@RequestParam RelationRequestParamsDto request) {
+    public ResponseEntity<PageResponseDto<Relation>> getList(@Validated RelationRequestParamsDto request) {
         Page<Relation> resultPage = service.paginateList(request);
         PageResponseDto<Relation> pageResponse = new PageResponseDto<>(resultPage);
         return new ResponseEntity<>(pageResponse, HttpStatus.OK);

@@ -15,14 +15,14 @@ public class SubjectSpecification {
 
         return (root, query, cb) -> {
             String search = request.getSearch();
-            if (!search.isEmpty()) {
+            if (search != null) {
                 List<Predicate> searchPredicates = new ArrayList<>();
                 searchPredicates.add(cb.like(cb.lower(root.get("name")), "%" + search.toLowerCase() + "%"));
                 searchPredicates.add(cb.like(cb.lower(root.get("description")), "%" + search.toLowerCase() + "%"));
                 predicates.add(cb.or(searchPredicates.toArray(new Predicate[0])));
             }
             List<Long> idIn = request.getIdIn();
-            if (!idIn.isEmpty()) {
+            if (idIn != null) {
                 CriteriaBuilder.In<Long> idInPredicate = cb.in(root.get("id"));
                 for (Long id : idIn) {
                     idInPredicate.value(id);
@@ -30,7 +30,7 @@ public class SubjectSpecification {
                 filterPredicates.add(idInPredicate);
             }
             List<Long> typeIdIn = request.getTypeIdIn();
-            if (!typeIdIn.isEmpty()) {
+            if (typeIdIn != null) {
                 CriteriaBuilder.In<Long> typeIdInPredicate = cb.in(root.get("type").get("id"));
                 for (Long typeId : typeIdIn) {
                     typeIdInPredicate.value(typeId);

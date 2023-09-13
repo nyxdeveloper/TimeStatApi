@@ -10,6 +10,6 @@ import java.util.List;
 public class RequestParamsDto extends Dto {
     String search;
     List<Long> idIn;
-    int page;
-    int pageSize;
+    int page = 0;
+    int pageSize = 100;
 }
